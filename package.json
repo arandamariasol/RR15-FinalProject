@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx wdio run ./wdio.conf.js --spec ./test/specs/productsTest.js"
+    "test": "npx wdio run ./wdio.conf.js --spec ./test/specs/E2ETest.js"
   },
   "repository": {
     "type": "git",

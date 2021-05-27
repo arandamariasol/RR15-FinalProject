@@ -33,7 +33,7 @@ describe('Checkout Page', () => {
         })
     })
     
-    describe('Complete Checkout data', () => {
+    describe('Checkout: Your Information', () => {
 
         describe ('Back to Cart Page', () => {
 
@@ -42,6 +42,7 @@ describe('Checkout Page', () => {
             CartPage.checkout.waitForDisplayed();
             CartPage.checkout.waitForEnabled();
             CartPage.checkout.click();
+            expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
             CheckoutPage.cancel.waitForDisplayed();
             CheckoutPage.cancel.waitForEnabled();
             CheckoutPage.cancel.click();
@@ -56,6 +57,7 @@ describe('Checkout Page', () => {
                 CartPage.checkout.waitForDisplayed();
                 CartPage.checkout.waitForEnabled();
                 CartPage.checkout.click();
+                expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
                 CheckoutPage.inputLastName.waitForDisplayed();
                 CheckoutPage.inputLastName.waitForEnabled();
                 CheckoutPage.inputLastName.setValue('Perez')
@@ -73,6 +75,7 @@ describe('Checkout Page', () => {
                 CartPage.checkout.waitForDisplayed();
                 CartPage.checkout.waitForEnabled();
                 CartPage.checkout.click();
+                expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
                 CheckoutPage.inputFirstName.waitForDisplayed();
                 CheckoutPage.inputFirstName.waitForEnabled();
                 CheckoutPage.inputFirstName.setValue('Juan')
@@ -90,6 +93,7 @@ describe('Checkout Page', () => {
                 CartPage.checkout.waitForDisplayed();
                 CartPage.checkout.waitForEnabled();
                 CartPage.checkout.click();
+                expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
                 CheckoutPage.inputFirstName.waitForDisplayed();
                 CheckoutPage.inputFirstName.waitForEnabled();
                 CheckoutPage.inputFirstName.setValue('Juan')
@@ -110,6 +114,7 @@ describe('Checkout Page', () => {
             CartPage.checkout.waitForDisplayed();
             CartPage.checkout.waitForEnabled();
             CartPage.checkout.click();
+            expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
             CheckoutPage.inputFirstName.waitForDisplayed();
             CheckoutPage.inputFirstName.waitForEnabled();
             CheckoutPage.inputFirstName.setValue('Juan')
@@ -128,26 +133,46 @@ describe('Checkout Page', () => {
 
         describe ('Checkout: Overview', () => {
 
-            it('Product 1 Checkout', () => {
+            it('Products Overview Checkout', () => {
+                expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
                 ProductsPage.titleBackpack.waitForDisplayed();
                 ProductsPage.titleBackpack.waitForEnabled();
                 expect(ProductsPage.titleBackpack).toBeDisplayed();
-            })
-
-            it('Product 2 Checkout', () => {
                 ProductsPage.titleBikeLight.waitForDisplayed();
                 ProductsPage.titleBikeLight.waitForEnabled();
                 expect(ProductsPage.titleBikeLight).toBeDisplayed();
+                CheckoutPage.summarySubtotal.waitForDisplayed();
+                CheckoutPage.summarySubtotal.waitForEnabled();
+                expect(CheckoutPage.summarySubtotal).toHaveTextContaining('$39.98');
+                CheckoutPage.summaryTax.waitForDisplayed();
+                CheckoutPage.summaryTax.waitForEnabled();
+                expect(CheckoutPage.summaryTax).toHaveTextContaining('$3.20');
+                CheckoutPage.summaryTotal.waitForDisplayed();
+                CheckoutPage.summaryTotal.waitForEnabled();
+                expect(CheckoutPage.summaryTotal).toHaveTextContaining('$43.18');
+
             })
+        
         })
 
-        describe ('Success finish', () => {
+        describe ('Checkout: Complete ', () => {
 
-            it('Checkout: Complete', () => {
+            it('Success finish', () => {
                 CheckoutPage.finish.waitForDisplayed();
                 CheckoutPage.finish.waitForEnabled();
                 CheckoutPage.finish.click();
                 expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
+                expect(CheckoutPage.title).toHaveText('CHECKOUT: COMPLETE!'); 
+                CheckoutPage.completeHeader.waitForDisplayed();
+                CheckoutPage.completeHeader.waitForEnabled();
+                expect(CheckoutPage.completeHeader).toBeDisplayed();
+                CheckoutPage.completeText.waitForDisplayed();
+                CheckoutPage.completeText.waitForEnabled();
+                expect(CheckoutPage.completeText).toBeDisplayed();
+                CheckoutPage.completeImg.waitForDisplayed();
+                CheckoutPage.completeImg.waitForEnabled();
+                expect(CheckoutPage.completeImg).toBeDisplayed();
+
             })
 
             it('Back Home', () => {

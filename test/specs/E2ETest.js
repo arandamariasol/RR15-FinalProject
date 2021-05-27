@@ -22,6 +22,7 @@ describe('Add products to Cart', () => {
     
     it('Add Bolt T Shirt to Cart', () => {
         ProductsPage.open()
+        browser.pause(1000)
         ProductsPage.addToCartBoltTShirt.waitForDisplayed();
         ProductsPage.addToCartBoltTShirt.waitForEnabled();
         ProductsPage.addToCartBoltTShirt.click();
@@ -57,6 +58,7 @@ describe('Checkout', () => {
         CartPage.checkout.waitForDisplayed();
         CartPage.checkout.waitForEnabled();
         CartPage.checkout.click();
+        expect(CheckoutPage.title).toHaveText('CHECKOUT: YOUR INFORMATION');
         CheckoutPage.inputFirstName.waitForDisplayed();
         CheckoutPage.inputFirstName.waitForEnabled();
         CheckoutPage.inputFirstName.setValue('Juan')
@@ -75,22 +77,26 @@ describe('Checkout', () => {
 
     describe ('Checkout: Overview', () => {
 
-        it('Product 1 Checkout', () => {
+        it('Products added Checkout', () => {
+            expect(CheckoutPage.title).toHaveText('CHECKOUT: OVERVIEW');
             ProductsPage.titleBoltTShirt.waitForDisplayed();
             ProductsPage.titleBoltTShirt.waitForEnabled();
             expect(ProductsPage.titleBoltTShirt).toBeDisplayed();
-        })
-
-        it('Product 2 Checkout', () => {
             ProductsPage.titleFleeceJacket.waitForDisplayed();
             ProductsPage.titleFleeceJacket.waitForEnabled();
             expect(ProductsPage.titleFleeceJacket).toBeDisplayed();
-        })
-
-        it('Product 3 Checkout', () => {
             ProductsPage.titleOnesie.waitForDisplayed();
             ProductsPage.titleOnesie.waitForEnabled();
             expect(ProductsPage.titleOnesie).toBeDisplayed();
+            CheckoutPage.summarySubtotal.waitForDisplayed();
+            CheckoutPage.summarySubtotal.waitForEnabled();
+            expect(CheckoutPage.summarySubtotal).toHaveTextContaining('$73.97');
+            CheckoutPage.summaryTax.waitForDisplayed();
+            CheckoutPage.summaryTax.waitForEnabled();
+            expect(CheckoutPage.summaryTax).toHaveTextContaining('$5.92');
+            CheckoutPage.summaryTotal.waitForDisplayed();
+            CheckoutPage.summaryTotal.waitForEnabled();
+            expect(CheckoutPage.summaryTotal).toHaveTextContaining('$79.89');
         })
     })
 
@@ -101,6 +107,16 @@ describe('Checkout', () => {
             CheckoutPage.finish.waitForEnabled();
             CheckoutPage.finish.click();
             expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
+            expect(CheckoutPage.title).toHaveText('CHECKOUT: COMPLETE!'); 
+            CheckoutPage.completeHeader.waitForDisplayed();
+            CheckoutPage.completeHeader.waitForEnabled();
+            expect(CheckoutPage.completeHeader).toBeDisplayed();
+            CheckoutPage.completeText.waitForDisplayed();
+            CheckoutPage.completeText.waitForEnabled();
+            expect(CheckoutPage.completeText).toBeDisplayed();
+            CheckoutPage.completeImg.waitForDisplayed();
+            CheckoutPage.completeImg.waitForEnabled();
+            expect(CheckoutPage.completeImg).toBeDisplayed();
         })
 
         it('Back Home', () => {
