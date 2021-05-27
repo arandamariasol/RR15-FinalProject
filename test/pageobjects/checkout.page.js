@@ -12,6 +12,7 @@ get errorMsgPostalCode () { return $('h3=Error: Postal Code is required') }
 get continue () { return $('#continue') }
 get cancel () { return $('#cancel') }
 get finish () { return $('#finish') }
+get backToProducts () { return $('#back-to-products') }
 
 }
 

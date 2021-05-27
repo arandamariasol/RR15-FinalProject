@@ -152,29 +152,88 @@ describe('Products page', () => {
 
     })
 
-    /* ARREGLAR
+    describe ('Product filter testing', () => {      
+
+        it('Price HIGH to LOW', () =>{
+            ProductsPage.open();
+            ProductsPage.productFilter.click();
+            ProductsPage.sortItems(3);
+            expect(ProductsPage.priceItemSelector(0)).toHaveText("$49.99");
+            expect(ProductsPage.priceItemSelector(1)).toHaveText("$29.99");
+            expect(ProductsPage.priceItemSelector(2)).toHaveText("$15.99");
+            expect(ProductsPage.priceItemSelector(3)).toHaveText("$15.99");
+            expect(ProductsPage.priceItemSelector(4)).toHaveText("$9.99");
+            expect(ProductsPage.priceItemSelector(5)).toHaveText("$7.99");                   
+        });
+
+        it('Price LOW to HIGH', () =>{
+            browser.refresh();
+            ProductsPage.productFilter.click();
+            ProductsPage.sortItems(2);
+            expect(ProductsPage.priceItemSelector(0)).toHaveText("$7.99");
+            expect(ProductsPage.priceItemSelector(1)).toHaveText("$9.99");
+            expect(ProductsPage.priceItemSelector(2)).toHaveText("$15.99");
+            expect(ProductsPage.priceItemSelector(3)).toHaveText("$15.99");
+            expect(ProductsPage.priceItemSelector(4)).toHaveText("$29.99"); 
+            expect(ProductsPage.priceItemSelector(5)).toHaveText("$49.99");
+        });
+
+        it('Name Z to A', () =>{
+            browser.refresh();
+            ProductsPage.productFilter.click();
+            ProductsPage.sortItems(1);                   
+            expect(ProductsPage.nameItemSelector(0)).toHaveText("Test.allTheThings() T-Shirt (Red)");
+            expect(ProductsPage.nameItemSelector(1)).toHaveText("Sauce Labs Onesie");
+            expect(ProductsPage.nameItemSelector(2)).toHaveText("Sauce Labs Fleece Jacket");
+            expect(ProductsPage.nameItemSelector(3)).toHaveText("Sauce Labs Bolt T-Shirt");
+            expect(ProductsPage.nameItemSelector(4)).toHaveText("Sauce Labs Bike Light");
+            expect(ProductsPage.nameItemSelector(5)).toHaveText("Sauce Labs Backpack");                    
+        });
+
+        it('Name A to Z', () =>{
+            browser.refresh();
+            ProductsPage.productFilter.click();
+            ProductsPage.sortItems(0);
+            expect(ProductsPage.nameItemSelector(5)).toHaveText("Test.allTheThings() T-Shirt (Red)");
+            expect(ProductsPage.nameItemSelector(4)).toHaveText("Sauce Labs Onesie");
+            expect(ProductsPage.nameItemSelector(3)).toHaveText("Sauce Labs Fleece Jacket");
+            expect(ProductsPage.nameItemSelector(2)).toHaveText("Sauce Labs Bolt T-Shirt");
+            expect(ProductsPage.nameItemSelector(1)).toHaveText("Sauce Labs Bike Light");
+            expect(ProductsPage.nameItemSelector(0)).toHaveText("Sauce Labs Backpack");                    
+        });
+    })
+
     describe('Correct access to social media', () => {
-    
+
         it('Link redirects correctly to Twitter', () => {
-            ProductsPage.open()
+            ProductsPage.open();
+            ProductsPage.twitter.waitForDisplayed();
+            ProductsPage.twitter.waitForEnabled();
             ProductsPage.twitter.click();
-            browser.newWindow
+            const handles = browser.getWindowHandles();
+            browser.switchToWindow(handles[1]);  
             expect(browser).toHaveUrl('https://twitter.com/saucelabs');
         })
-
+    
         it('Link redirects correctly to Facebook', () => {
-            ProductsPage.open()
+            ProductsPage.open();
+            ProductsPage.facebook.waitForDisplayed();
+            ProductsPage.facebook.waitForEnabled();
             ProductsPage.facebook.click();
+            const handles = browser.getWindowHandles();
+            browser.switchToWindow(handles[2]); 
             expect(browser).toHaveUrl('https://www.facebook.com/saucelabs');
         })
 
         it('Link redirects correctly to LinkedIn', () => {
-            ProductsPage.open()
+            ProductsPage.open();
             ProductsPage.linkedin.click();
-            expect(browser).toHaveUrl('https://www.linkedin.com/company/sauce-labs/');
+            const handles = browser.getWindowHandles();
+            browser.switchToWindow(handles[3]); 
+            expect(browser).toHaveUrlContaining('linkedin')
         })
 
-    })*/
+    })
 
     describe('Correct redirection to Cart Section', () => {
 
@@ -224,38 +283,6 @@ describe('Products page', () => {
         })
 
     })
-    
-    /* ARREGLAR
-    describe('Correct filter', () => {
-
-         it('Filter A-Z', () => {
-            ProductsPage.open()
-            ProductsPage.productFilter.click();
-            ProductsPage.productFilter.selectByAttribute('value', 'az')
-            expect(ProductsPage.productFilter).toHaveValue('az')
-        })
-
-        it('Filter Z-A', () => {
-            ProductsPage.open()
-            ProductsPage.productFilter.click();
-            ProductsPage.productFilter.selectByAttribute('value', 'za')
-            expect(ProductsPage.productFilter).toHaveValue('za')
-        })
-
-        it('Filter Price Low to High', () => {
-            ProductsPage.open()
-            ProductsPage.productFilter.click();
-            ProductsPage.productFilter.selectByAttribute('value', 'lohi')
-            expect(ProductsPage.productFilter).toHaveValue('lohi')
-        })
-
-        it('Filter Price High to Low', () => {
-            ProductsPage.open()
-            ProductsPage.productFilter.click();
-            ProductsPage.productFilter.selectByAttribute('value', 'hilo')
-            expect(ProductsPage.productFilter).toHaveValue('hilo')
-        })
-    })*/
 
 })
 

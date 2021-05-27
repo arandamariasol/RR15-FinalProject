@@ -2,7 +2,6 @@ const LoginPage = require('../pageobjects/login.page');
 const ProductsPage = require('../pageobjects/products.page');
 const CartPage = require('../pageobjects/cart.page');
 const CheckoutPage = require('../pageobjects/checkout.page');
-const { errorMsg } = require('../pageobjects/login.page');
 
 describe('Checkout Page', () => {
 
@@ -35,25 +34,19 @@ describe('Checkout Page', () => {
     })
     
     describe('Complete Checkout data', () => {
-    
-        it('Complete with valid data', () => {
-                CartPage.open()
-                CartPage.checkout.waitForDisplayed();
-                CartPage.checkout.waitForEnabled();
-                CartPage.checkout.click();
-                CheckoutPage.inputFirstName.waitForDisplayed();
-                CheckoutPage.inputFirstName.waitForEnabled();
-                CheckoutPage.inputFirstName.setValue('Juan')
-                CheckoutPage.inputLastName.waitForDisplayed();
-                CheckoutPage.inputLastName.waitForEnabled();
-                CheckoutPage.inputLastName.setValue('Perez')
-                CheckoutPage.inputPostalCode.waitForDisplayed();
-                CheckoutPage.inputPostalCode.waitForEnabled();
-                CheckoutPage.inputPostalCode.setValue('2000');
-                CheckoutPage.continue.waitForDisplayed();
-                CheckoutPage.continue.waitForEnabled();
-                CheckoutPage.continue.click();
-                expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
+
+        describe ('Back to Cart Page', () => {
+
+            it('Cancel Checkout', () => {
+            CartPage.open()
+            CartPage.checkout.waitForDisplayed();
+            CartPage.checkout.waitForEnabled();
+            CartPage.checkout.click();
+            CheckoutPage.cancel.waitForDisplayed();
+            CheckoutPage.cancel.waitForEnabled();
+            CheckoutPage.cancel.click();
+            expect(browser).toHaveUrl('https://www.saucedemo.com/cart.html');
+            })
         })
     
         describe('Complete with invalid data', () => {
@@ -109,7 +102,65 @@ describe('Checkout Page', () => {
                 expect(CheckoutPage.errorMsgPostalCode).toBeDisplayed()
             }) 
         })
-       
+
+        describe ('Complete with valid data', () => {
+
+            it('Valid First Name, Last Name and Postal Code', () => {
+            CartPage.open()
+            CartPage.checkout.waitForDisplayed();
+            CartPage.checkout.waitForEnabled();
+            CartPage.checkout.click();
+            CheckoutPage.inputFirstName.waitForDisplayed();
+            CheckoutPage.inputFirstName.waitForEnabled();
+            CheckoutPage.inputFirstName.setValue('Juan')
+            CheckoutPage.inputLastName.waitForDisplayed();
+            CheckoutPage.inputLastName.waitForEnabled();
+            CheckoutPage.inputLastName.setValue('Perez')
+            CheckoutPage.inputPostalCode.waitForDisplayed();
+            CheckoutPage.inputPostalCode.waitForEnabled();
+            CheckoutPage.inputPostalCode.setValue('2000');
+            CheckoutPage.continue.waitForDisplayed();
+            CheckoutPage.continue.waitForEnabled();
+            CheckoutPage.continue.click();
+            expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-step-two.html');
+            })
+        })
+
+        describe ('Checkout: Overview', () => {
+
+            it('Product 1 Checkout', () => {
+                ProductsPage.titleBackpack.waitForDisplayed();
+                ProductsPage.titleBackpack.waitForEnabled();
+                expect(ProductsPage.titleBackpack).toBeDisplayed();
+            })
+
+            it('Product 2 Checkout', () => {
+                ProductsPage.titleBikeLight.waitForDisplayed();
+                ProductsPage.titleBikeLight.waitForEnabled();
+                expect(ProductsPage.titleBikeLight).toBeDisplayed();
+            })
+        })
+
+        describe ('Success finish', () => {
+
+            it('Checkout: Complete', () => {
+                CheckoutPage.finish.waitForDisplayed();
+                CheckoutPage.finish.waitForEnabled();
+                CheckoutPage.finish.click();
+                expect(browser).toHaveUrl('https://www.saucedemo.com/checkout-complete.html');
+            })
+
+            it('Back Home', () => {
+                CheckoutPage.backToProducts.waitForDisplayed();
+                CheckoutPage.backToProducts.waitForEnabled();
+                CheckoutPage.backToProducts.click();
+                expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+            })
+
+        })
+
+
+
     })
     
 })

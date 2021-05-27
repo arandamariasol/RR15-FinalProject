@@ -32,9 +32,6 @@ class ProductsPage extends Page {
     get removeToCartTaTTTShirt () { return $(' [name="remove-test.allthethings()-t-shirt-(red)"] ')}
     get titleTaTTTShirt () { return $('.inventory_item_name=Test.allTheThings() T-Shirt (Red)')}
 
-    
-
-
     get productFilter () { return $('.product_sort_container')}
 
     get mainMenu () { return $('#react-burger-menu-btn')}
@@ -53,9 +50,26 @@ class ProductsPage extends Page {
         return super.open('inventory.html');
     }
 
-    submitProd () {
-        this.prodBackpack.click()
+    /*SETTERS*/
+    nameItemSelector (value) {
+        return $$('.inventory_item_name')[value]
     }
+    igmItemSelector (value) {
+        return $$('.inventory_item_img')[value]
+    }
+    
+    descriptionItemSelector (value) {
+        return $$('.inventory_item_desc')[value]
+    }
+    priceItemSelector (value) {
+        return $$('.inventory_item_price')[value]
+    }
+    /* METHODS */
+         
+    sortItems (value) {
+        this.productFilter.click();
+        this.productFilter.$$('option')[`${value}`].click();
+    }     
 }
 
 module.exports = new ProductsPage();
