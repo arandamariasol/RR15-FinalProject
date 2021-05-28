@@ -22,7 +22,6 @@ describe('Add products to Cart', () => {
     
     it('Add Bolt T Shirt to Cart', () => {
         ProductsPage.open()
-        browser.pause(1000)
         ProductsPage.addToCartBoltTShirt.waitForDisplayed();
         ProductsPage.addToCartBoltTShirt.waitForEnabled();
         ProductsPage.addToCartBoltTShirt.click();
